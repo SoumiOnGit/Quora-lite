@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Question: {{ question.title }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ question.title }}</h1>
+        <p>{{ question.text }}</p>
+        <p>Posted by: {{ question.user.username }}</p>
+    </article>
+
+    <section>
+        <h2>Answers</h2>
+        {% if answers %}
+            <ul>
+                {% for answer in answers %}
+                    <li>
+                        <p>{{ answer.text }}</p>
+                        <p>Posted by: {{ answer.user.username }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No answers have been posted for this question yet.</p>
+        {% endif %}
+    </section>
+
+    <!-- Form for posting answers -->
+    <h2>Post an Answer</h2>
+    <form method="post" action="{% url 'post_answer' question.id %}">
+        {% csrf_token %}
+        {{ answer_form.as_p }}
+        <button type="submit">Post Answer</button>
+    </form>
+</section>
+{% endblock %}

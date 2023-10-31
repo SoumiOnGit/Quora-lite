@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Questions List{% endblock %}
+
+{% block content %}
+    <h1>Questions List</h1>
+
+    <ul>
+        {% for question in questions %}
+            <li>
+                <h2><a href="{% url 'question_detail' question.id %}">{{ question.title }}</a></h2>
+                <p>{{ question.text }}</p>
+                <p>Posted by: {{ question.user.username }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Add pagination if needed -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if questions.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ questions.previous_page_number }}">previous</a>
+            {% endif %}
+            
+            <span class="current-page">
+                Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
+            </span>
+            
+            {% if questions.has_next %}
+                <a href="?page={{ questions.next_page_number }}">next</a>
+                <a href="?page={{ questions.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</section>
+{% endblock %}

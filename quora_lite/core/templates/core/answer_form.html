@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{% if form.instance.id %}Edit Answer{% else %}Create Answer{% endif %}{% endblock %}
+
+{% block content %}
+    <h1>{% if form.instance.id %}Edit Answer{% else %}Create Answer{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if form.instance.id %}Save Changes{% else %}Create Answer{% endif %}</button>
+    </form>
+</section>
+{% endblock %}
